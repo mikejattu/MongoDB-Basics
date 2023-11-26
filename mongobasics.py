@@ -1,7 +1,3 @@
-"""
-
-
-"""
 # writing a mongoDB test script
 from pymongo import MongoClient
 
