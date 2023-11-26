@@ -1,3 +1,7 @@
+"""
+
+
+"""
 # writing a mongoDB test script
 from pymongo import MongoClient
 
@@ -24,13 +28,14 @@ student = {
     "branch": "CSE"
 }
 
+"""
+
+Inserting Documents
+
+"""
 # inserting the document into the collection
 collection.insert_one(student)
 
-# Aggregation Pipeline
-# Aggregation operations process data records and return computed results
-# Aggregation operations group values from multiple documents together
-# Aggregation operations can perform a variety of operations on the grouped data to return a single result
 
 # inserring multiple documents into the collection
 students = [
@@ -64,18 +69,71 @@ collection.insert_many(students)
 # print the ids of the inserted documents:
 print(collection.inserted_ids)
 
+"""
+
+finding in a collection
+
+"""
 # finding in a collection
 # find all documents in the collection
 collection.find()
 
 # find documents with a query filter
-collection.find({"name": "Mark"})
 
+collection.find({"name": "Mark"}) # equality filter
+
+collection.find({"name": {"$eq": "Mark"}}) # equality filter
+
+collection.find({"name": {"$ne": "Mark"}}) # not equal filter
+
+collection.find({"name": {"$gt": "Mark"}}) # greater than filter
+
+collection.find({"name": {"$gte": "Mark"}}) # greater than or equal to filter
+
+collection.find({"name": {"$lt": "Mark"}}) # less than filter
+
+collection.find({"name": {"$lte": "Mark"}}) # less than or equal to filter
+
+collection.find({"name": {"$in": ["Mark", "John"]}}) # in filter
+
+collection.find({"name": {"$nin": ["Mark", "John"]}}) # not in filter
+
+collection.find({"name": {"$exists": True}}) # exists filter
+
+# limiting the number of documents returned
+collection.find().limit(2)
+
+"""
+
+Counting Documents
+
+"""
 # find the count of documents in the collection
 collection.count_documents({})
 
 # find the count of documents in the collection with a query filter
 collection.count_documents({"name": "Mark"})
+
+"""
+
+Updating Documents
+
+"""
+# update a single document
+collection.update_one({"name": "Mark"}, {"$set": {"branch": "IT"}})
+
+# update multiple documents
+collection.update_many({"name": "Mark"}, {"$set": {"branch": "IT"}})
+
+
+
+"""
+
+Aggregation Pipeline: Aggregation operations process data records and return computed results. 
+                      Aggregation operations group values from multiple documents together, and can perform a variety of operations on the grouped data to return a single result. 
+                      MongoDB provides three ways to perform aggregation: the aggregation pipeline, the map-reduce function, and single purpose aggregation methods.
+
+"""
 
 # $group stage
 # The $group stage groups documents by some specified expression and outputs to the next stage a document for each distinct grouping.
