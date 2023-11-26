@@ -7,8 +7,11 @@ client = MongoClient()
 # specifiying the host and port
 client = MongoClient('localhost', 27017)
 
-# creating a database  
+# creating or opening a database  
 db = client['test-database'] 
+
+# listing the collection names
+collection_list = db.list_collection_names()
 
 # creating a collection
 collection = db['test-collection']
@@ -58,6 +61,21 @@ students = [
     }
 ]
 collection.insert_many(students)
+# print the ids of the inserted documents:
+print(collection.inserted_ids)
+
+# finding in a collection
+# find all documents in the collection
+collection.find()
+
+# find documents with a query filter
+collection.find({"name": "Mark"})
+
+# find the count of documents in the collection
+collection.count_documents({})
+
+# find the count of documents in the collection with a query filter
+collection.count_documents({"name": "Mark"})
 
 # $group stage
 # The $group stage groups documents by some specified expression and outputs to the next stage a document for each distinct grouping.
